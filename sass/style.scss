@@ -1,8 +1,25 @@
 .top-padding {
   padding-top:40px;
 }
+
+.top-padding-60 {
+  padding-top:60px;
+}
+
 .header {
   .active {
     font-weight: 900;
   }
+}
+
+.img-preview {
+  display: inline-block;
+  img {
+    height: 300px;
+    width: 300px;
+  }
+}
+
+.topic {
+  text-align: center;
 }
