@@ -1,10 +1,22 @@
 var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
+var TopicStore = require('../stores/topic-store');
+var Reflux = require('reflux');
+var Actions = require('../actions');
 
 module.exports = React.createClass({
+  mixins: [Reflux.listenTo(TopicStore, 'onChange')],
+  getInitialState: function() {
+    return {
+      topics: []
+    }
+  },
+  componentWillMount: function() {
+    Actions.getTopics();
+  },
   render: function() {
-    return <nav className="navbar navbar-default navbar-fixed-top">
+    return <nav className="navbar navbar-default navbar-fixed-top header">
       <div className="container">
         <div className="navbar-header">
           <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -17,12 +29,20 @@ module.exports = React.createClass({
         </div>
         <div id="navbar" className="navbar-collapse collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li><Link to="../navbar/">Default</Link></li>
-            <li><a href="../navbar-static-top/">Static top</a></li>
-            <li className="active"><a href="./">Fixed top <span className="sr-only">(current)</span></a></li>
+            {this.renderTopics()}
           </ul>
         </div>
       </div>
     </nav>
+  },
+  renderTopics: function() {
+    return this.state.topics.slice(0,4).map(function(topic) {
+      return <li key={topic.id}><Link to={"topics/"+ topic.id}>{topic.name}</Link></li>
+    })
+  },
+  onChange: function(event, topics) {
+    this.setState({
+      topics: topics
+    })
   }
 })
