@@ -19,12 +19,12 @@ module.exports = React.createClass({
   },
   render: function () {
     return <div className='list-group top-padding'>
-      <h1>Topic List</h1>
+      <h1>Topic Lists</h1>
       {this.renderTopics()}
     </div>
   },
   renderTopics: function() {
-    return this.state.topics.slice(0,4).map(function(topic) {
+    return this.state.topics.map(function(topic) {
       return <Link activeClassName="active" to={"topics/" + topic.id} key={topic.id} className='list-group-item'>
         <h4>{topic.name}</h4>
         <p>{topic.description}</p>

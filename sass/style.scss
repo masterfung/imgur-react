@@ -14,9 +14,26 @@
 
 .img-preview {
   display: inline-block;
+  position: relative;
+
+  .glyphicon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: white;
+    opacity: 0.5;
+  }
   img {
     height: 300px;
     width: 300px;
+  }
+  video {
+    height: 300px;
+    width: 300px;
+    vertical-align: middle;
+    background-color: black;
   }
 }
 
