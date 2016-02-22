@@ -47,6 +47,20 @@
   }
 }
 
+.image-detail {
+  img, video {
+    max-width: 100%;
+  }
+  video {
+    vertical-align: middle;
+    background-color: black;
+  }
+}
+
+.centering {
+  text-align: center;
+}
+
 .topic {
   text-align: center;
 }
