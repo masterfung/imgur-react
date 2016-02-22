@@ -1,11 +1,15 @@
 {
   "name": "imgur_mock",
   "version": "1.0.0",
+  "description": "An Imgur Mock project made with React and Flux (redux)",
+  "engines": {
+    "node": "5.1.0"
+  },
   "main": "main.js",
   "scripts": {
     "start": "gulp"
   },
-  "author": "",
+  "author": "Tsung Hung",
   "license": "ISC",
   "dependencies": {
     "browserify": "^9.0.3",
