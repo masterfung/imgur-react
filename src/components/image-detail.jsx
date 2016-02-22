@@ -1,14 +1,23 @@
 var React = require('react');
 var Reflux = require('reflux');
 var ImageStore = require('../stores/image-store');
+var CommentStore = require('../stores/comment-store');
+var CommentBox = require('./comment-box');
 var Actions = require('../actions');
 
 
 module.exports = React.createClass({
-  mixins: [Reflux.listenTo(ImageStore, 'onChange')],
+  mixins: [
+    Reflux.listenTo(ImageStore, 'onChange'),
+    Reflux.listenTo(CommentStore, 'onChange'),
+  ],
+  propTypes: {
+    comments: React.PropTypes.node
+  },
   getInitialState: function() {
     return {
-      image: null
+      image: null,
+      comments: null
     }
   },
   componentWillMount: function() {
@@ -26,11 +35,28 @@ module.exports = React.createClass({
       </div>
       <div className='panel-body centering'>
         {this.renderImageVideo()}
+        {this.renderDescription()}
       </div>
-      <div className='panel-footer'>
-        <h5>{this.state.image.description}</h5>
+      <div>
+        <h3>Comments</h3>
+        {this.renderComments()}
       </div>
     </div>
+  },
+  renderDescription: function() {
+    if (!this.state.image.description) {
+      return null
+    } else {
+      return <div className='panel-footer'>
+        <h5>{this.state.image.description}</h5>
+      </div>
+    }
+  },
+  renderComments: function() {
+    if(!this.state.comments) {
+      return null
+    }
+    return <CommentBox comments={this.state.comments} />
   },
   renderImageVideo: function() {
     if (this.state.image.animated) {
@@ -42,6 +68,9 @@ module.exports = React.createClass({
     }
   },
   onChange: function() {
-    this.setState({image: ImageStore.find(this.props.params.id)})
+    this.setState({
+      image: ImageStore.find(this.props.params.id),
+      comments: CommentStore.comment
+    })
   }
 });
